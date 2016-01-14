@@ -1,9 +1,15 @@
 import os
 from apns import APNs, Payload
 import tempfile
+from worker.async_worker import async_send_task
 
 
-class ApnsProvider():
+class BaseProvider():
+    def __init__(self, pem):
+        self.pem = pem
+
+
+class ApnsProvider(BaseProvider):
     """
     Apple push notification service
     push_id is
@@ -45,8 +51,7 @@ class ApnsProvider():
         )
 
         try:
-            apns.gateway_server.send_notification(
-                push_token, payload
-            )
+            async_send_task.delay(apns.gateway_server.send_notification,
+                                  pushtoken=push_token, payload=payload)
         finally:
             os.unlink(cert_file)

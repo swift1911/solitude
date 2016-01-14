@@ -6,3 +6,4 @@ SQLAlchemy
 PyMySQL
 redis
 tornado
+celery

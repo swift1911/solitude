@@ -2,6 +2,6 @@ from tornado.web import RequestHandler
 
 
 class BaseRequestHandler(RequestHandler):
-    self.route = route
-
-
+    def __init__(self, route=None, ctx=None):
+        self.route = route
+        self.ctx = ctx
