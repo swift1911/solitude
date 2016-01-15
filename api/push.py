@@ -3,17 +3,11 @@ from service.push import ApnsProvider
 
 
 class PingApi(BaseRequestHandler):
-    def __init__(self):
-        super(BaseRequestHandler, self).__init__('ping')
-
     def get(self):
-        return 'ping ok'
+        self.write('pong')
 
 
 class PushApi(BaseRequestHandler):
-    def __init__(self):
-        super(BaseRequestHandler, self).__init__('push')
-
     def get(self):
         return 'METHOD NOT ALLOWED'
 
