@@ -3,10 +3,13 @@ from apns import APNs, Payload
 import tempfile
 from worker.async_worker import async_send_task
 
+TYPE_NOTIFICATION = 1
+TYPE_CONTENT = 2
+
 
 class BaseProvider():
-    def __init__(self, pem):
-        self.pem = pem
+    def __init__(self):
+        self.pem = None
 
 
 class ApnsProvider(BaseProvider):
@@ -18,6 +21,9 @@ class ApnsProvider(BaseProvider):
     raw_content is push content
 
     """
+
+    def __init__(self):
+        super(ApnsProvider, self).__init__()
 
     TIMEOUT = 10
 
@@ -47,7 +53,7 @@ class ApnsProvider(BaseProvider):
                 'id': push_id,
                 'content': raw_content,
             },
-            content_available=False if push_type == 1 else True
+            content_available=False if push_type == TYPE_NOTIFICATION else True
         )
 
         try:

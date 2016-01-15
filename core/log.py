@@ -12,7 +12,7 @@ def call_ok(ctx):
 
 def call_exc(ctx):
     time_used = (time.time() - ctx.st_time) * 1000
-    fmt = (' => {time_used}')
+    fmt = (' => {time_used} => {ctx.exc}')
     logger.error(fmt, exc_info=True)
 
 
