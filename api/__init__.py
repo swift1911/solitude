@@ -18,11 +18,11 @@ class ApiCtx():
 def Api(rule):
     def _wrapper(func):
         ctx = ApiCtx()
-        ctx.st_time = time.time()
 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
+                ctx.st_time = time.time()
                 func(*args, **kwargs)
                 api_call_ok_sig.send(ctx)
             except Exception as e:

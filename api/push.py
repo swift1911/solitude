@@ -1,7 +1,5 @@
 from api import BaseRequestHandler, Api
 from service.push import ApnsProvider
-from core.signal import api_call_ok_sig
-from core.log import call_ok
 
 
 class PingApi(BaseRequestHandler):
@@ -12,10 +10,8 @@ class PingApi(BaseRequestHandler):
 
 class PushApi(BaseRequestHandler):
     @Api('push')
-    def get(self):
-        return 'METHOD NOT ALLOWED'
-
-    @Api('push')
     def post(self, *args, **kwargs):
         provider = ApnsProvider()
-        provider.send()
+        provider.send(1, 'asf', 'content', {
+            'category': 'test'
+        })

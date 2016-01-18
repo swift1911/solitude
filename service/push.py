@@ -7,8 +7,8 @@ TYPE_NOTIFICATION = 1
 TYPE_CONTENT = 2
 
 
-class BaseProvider():
-    def __init__(self):
+class BaseProvider(object):
+    def __init__(self, pem=None):
         self.pem = None
 
 
@@ -25,14 +25,12 @@ class ApnsProvider(BaseProvider):
     def __init__(self):
         super(ApnsProvider, self).__init__()
 
-    TIMEOUT = 10
-
     def send(self, push_id, push_token, push_type, raw_content):
 
         # create temp certificate
         cert_file_fd, cert_file = tempfile.mkstemp()
         cert_file_fp = os.fdopen(cert_file_fd, 'w')
-        cert_file_fp.write(self.app_pem)
+        cert_file_fp.write(self.pem)
         cert_file_fp.close()
 
         apns = APNs(
