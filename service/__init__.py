@@ -10,4 +10,4 @@ api_container = [
 
 reg_signal()
 
-logger_init()
+#logger_init()

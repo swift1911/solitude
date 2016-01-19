@@ -9,7 +9,7 @@ TYPE_CONTENT = 2
 
 class BaseProvider(object):
     def __init__(self, pem=None):
-        self.pem = None
+        self.pem = ''
 
 
 class ApnsProvider(BaseProvider):
@@ -56,6 +56,6 @@ class ApnsProvider(BaseProvider):
 
         try:
             async_send_task.delay(apns.gateway_server.send_notification,
-                                  pushtoken=push_token, payload=payload)
+                                  token_hex=push_token, payload=payload)
         finally:
             os.unlink(cert_file)
