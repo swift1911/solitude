@@ -1,14 +1,14 @@
 import asyncio
-
+import random
 
 async def io(x, y):
-    await asyncio.sleep(2)
+    await asyncio.sleep(random.random())
     print(x + y)
 
 
 @asyncio.coroutine
 def io_deco(x, y):
-    yield from asyncio.sleep(2)
+    yield from asyncio.sleep(random.random())
     print(x + y)
 
 
