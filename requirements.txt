@@ -7,3 +7,4 @@ PyMySQL
 redis
 tornado
 celery
+click
