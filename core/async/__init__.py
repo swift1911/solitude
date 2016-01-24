@@ -8,7 +8,7 @@ async def io(x, y):
 
 @asyncio.coroutine
 def io_deco(x, y):
-    yield from asyncio.sleep(random.random())
+    yield from asyncio.create_subprocess_exec
     print(x + y)
 
 

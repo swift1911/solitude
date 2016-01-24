@@ -18,6 +18,14 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 DBSession = scoped_session(
     sessionmaker(autocommit=False, autoflush=True, bind=engines['master']))
 
+
+def using_bind(name):
+    try:
+        return scoped_session(sessionmaker(autocommit=False, autoflush=True, bind=engines[name]))
+    except:
+        raise KeyError
+
+
 ModelBase = declarative_base()
 
 
