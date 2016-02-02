@@ -8,3 +8,4 @@ redis
 tornado
 celery
 click
+nose
