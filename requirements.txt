@@ -9,3 +9,4 @@ tornado
 celery
 click
 nose
+fabric
