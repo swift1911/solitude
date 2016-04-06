@@ -4,17 +4,34 @@ from fabric.api import (
     execute,
     hosts,
     sudo,
+    local,
+    cd
 )
 
-#fab task
+host = 'sg-linode'
+
+
+# fab task
 @task
-@hosts(['prod-1'])
+@hosts([host])
 def deploy():
-    sudo("mkdir -p /data/solitude")
+    remote_dir = '/data/solitude'
+    local_dir = '.'
+    sudo("mkdir -p {0}".format(remote_dir))
+    local("rsync -azq --progress --force --delete --delay-updates "
+          "{0} {1}:{2}/ ".format(
+        local_dir,
+        host,
+        remote_dir,
+    ))
+    with cd(remote_dir):
+        sudo('pip install -r requirements.txt')
+        sudo('cp solitude.ini /etc/supervisord.d/')
+        sudo('mkdir -p /data/log/solitude')
+        sudo('supervisorctl update')
+        sudo('supervisorctl restart solitude')
 
-
-
-#refrash service
+# refrash service
 def python_refresh():
     sudo("supervisorctl update")
     sudo("supervisorctl quickrestart")
